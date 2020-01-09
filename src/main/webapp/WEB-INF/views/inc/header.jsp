@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header class="site-navbar" role="banner">
 
 	<div class="container">
@@ -15,7 +16,7 @@
 					role="navigation">
 
 					<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-						<li class="active"><a href="index.html"><span>Home</span></a></li>
+						<li class="active"><a href="<c:url value='/'/>"><span>Home</span></a></li>
 						<li class="has-children"><a href="about.html"><span>Dropdown</span></a>
 							<ul class="dropdown arrow-top">
 								<li><a href="#">Menu One</a></li>
@@ -29,7 +30,7 @@
 										<li><a href="#">Menu Four</a></li>
 									</ul></li>
 							</ul></li>
-						<li><a href="listings.html"><span>Listings</span></a></li>
+						<li><a href="<c:url value='/list'/>"><span>Listings</span></a></li>
 						<li><a href="about.html"><span>About</span></a></li>
 						<li><a href="blog.html"><span>Blog</span></a></li>
 						<li><a href="contact.html"><span>Contact</span></a></li>
