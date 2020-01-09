@@ -11,14 +11,20 @@ public class MainController {
 //	@Inject
 //	MainService mainService;
 	
-	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
-	public String welcome() {
-		return "/company/welcome";
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String index() {
+		return "/index";
 	}
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String main() {
-		return "/main/main";
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String list() {
+		return "/list";
 	}
+	
+	@RequestMapping(value = "/content", method = RequestMethod.GET)
+	public String content() {
+		return "/content";
+	}
+
 
 }
