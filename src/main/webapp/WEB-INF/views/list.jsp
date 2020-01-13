@@ -34,8 +34,8 @@
             
             <div class="row justify-content-center">
               <div class="col-md-8 text-center">
-                <h1>Listings</h1>
-                <p data-aos="fade-up" data-aos-delay="100">Handcrafted free templates by <a href="https://free-template.co/" target="_blank">Free-Template.co</a></p>
+                <h1>기사 자료실</h1>
+                <p data-aos="fade-up" data-aos-delay="100">검색된 기사 <a href="https://free-template.co/" target="_blank">Free-Template.co</a></p>
               </div>
             </div>
 
@@ -50,47 +50,26 @@
       <div class="container">
         <div class="row">
           <div class="col-8">
+			<c:forEach var="list" items="${List }">
             <div class="border p-3 rounded mb-2">
-              <a data-toggle="collapse" href="#collapse-1" role="button" aria-expanded="false" aria-controls="collapse-1" class="accordion-item h5 d-block mb-0">How to list my item?</a>
-
-              <div class="collapse" id="collapse-1">
-                <div class="pt-2">
-                  <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti esse voluptates deleniti, ratione, suscipit quam cumque beatae, enim mollitia voluptatum velit excepturi possimus odio dolore molestiae officiis aspernatur provident praesentium.</p>
-                </div>
-              </div>
+	        	<div>
+	            	<a href="content?num=${list.num }" class="accordion-item h5 d-block mb-0">${list.keyword }(${list.date })</a>
+	            </div>
+	            <div style="top: -25px; right: 22px; float: right; position: relative;">
+	            	${list.count }
+	            </div>
             </div>
-
-            <div class="border p-3 rounded mb-2">
-              <a data-toggle="collapse" href="#collapse-4" role="button" aria-expanded="false" aria-controls="collapse-4" class="accordion-item h5 d-block mb-0">Is this available in my country?</a>
-
-              <div class="collapse" id="collapse-4">
-                <div class="pt-2">
-                  <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti esse voluptates deleniti, ratione, suscipit quam cumque beatae, enim mollitia voluptatum velit excepturi possimus odio dolore molestiae officiis aspernatur provident praesentium.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="border p-3 rounded mb-2">
-              <a data-toggle="collapse" href="#collapse-2" role="button" aria-expanded="false" aria-controls="collapse-2" class="accordion-item h5 d-block mb-0">Is it free?</a>
-
-              <div class="collapse" id="collapse-2">
-                <div class="pt-2">
-                  <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti esse voluptates deleniti, ratione, suscipit quam cumque beatae, enim mollitia voluptatum velit excepturi possimus odio dolore molestiae officiis aspernatur provident praesentium.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="border p-3 rounded mb-2">
-              <a data-toggle="collapse" href="#collapse-3" role="button" aria-expanded="false" aria-controls="collapse-3" class="accordion-item h5 d-block mb-0">How the system works?</a>
-
-              <div class="collapse" id="collapse-3">
-                <div class="pt-2">
-                  <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti esse voluptates deleniti, ratione, suscipit quam cumque beatae, enim mollitia voluptatum velit excepturi possimus odio dolore molestiae officiis aspernatur provident praesentium.</p>
-                </div>
-              </div>
-            </div>
+            </c:forEach>
+	        <div class="col-12 mt-5 text-center">
+	            <div class="custom-pagination">
+	              <span>1</span>
+	              <a href="#">2</a>
+	              <a href="#">3</a>
+	              <span class="more-page">...</span>
+	              <a href="#">10</a>
+	            </div>
+	        </div>
           </div>
-          
           <div class="col-lg-3 ml-auto">
 
             <div class="mb-5">
@@ -126,53 +105,14 @@
             <div class="mb-5">
               <form action="#" method="post">
                 <div class="form-group">
-                  <p>Radius around selected destination</p>
+                  <p>기사 갯수</p>
                 </div>
                 <div class="form-group">
                   <input type="range" min="0" max="100" value="20" data-rangeslider>
                 </div>
               </form>
             </div>
-
-            <div class="mb-5">
-              <form action="#" method="post">
-                <div class="form-group">
-                  <p>Category 'Restaurant' is selected</p>
-                  <p>More filters</p>
-                </div>
-                <div class="form-group">
-                  <ul class="list-unstyled">
-                    <li>
-                      <label for="option1">
-                        <input type="checkbox" id="option1">
-                        Coffee
-                      </label>
-                    </li>
-                    <li>
-                      <label for="option2">
-                        <input type="checkbox" id="option2">
-                        Vegetarian
-                      </label>
-                    </li>
-                    <li>
-                      <label for="option3">
-                        <input type="checkbox" id="option3">
-                        Vegan Foods
-                      </label>
-                    </li>
-                    <li>
-                      <label for="option4">
-                        <input type="checkbox" id="option4">
-                        Sea Foods
-                      </label>
-                    </li>
-                  </ul>
-                </div>
-              </form>
-            </div>
-
           </div>
-
         </div>
       </div>
     </div>

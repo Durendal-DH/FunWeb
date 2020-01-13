@@ -2,9 +2,10 @@ package com.itwillbs.domain;
 
 import java.sql.Date;
 
-public class JournalBean {
+public class ArticleBean {
 	private int num;
-	private int subject;
+	private int board_num;
+	private String subject;
 	private String link;
 	private Date date;
 	private String content;
@@ -15,10 +16,16 @@ public class JournalBean {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public int getSubject() {
+	public int getBoard_num() {
+		return board_num;
+	}
+	public void setBoard_num(int board_num) {
+		this.board_num = board_num;
+	}
+	public String getSubject() {
 		return subject;
 	}
-	public void setSubject(int subject) {
+	public void setSubject(String subject) {
 		this.subject = subject;
 	}
 	public String getLink() {
