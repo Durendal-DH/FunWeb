@@ -12,4 +12,10 @@ public interface ArticleDAO {
 
 	public List<ArticleBean> getArticleList(int num);
 
+	public void insertBoard(BoardBean bb);
+
+	public int getBoardMaxNum();
+
+	public void insertArticle(int num, List<ArticleBean> aList);
+
 }

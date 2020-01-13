@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.HttpServerErrorException;
 
+import com.itwillbs.crawler.Crawler;
 import com.itwillbs.domain.ArticleBean;
 import com.itwillbs.domain.BoardBean;
+import com.itwillbs.domain.CrawlerBean;
 import com.itwillbs.domain.PageBean;
 import com.itwillbs.service.ArticleService;
 
@@ -51,6 +53,26 @@ public class MainController {
 		model.addAttribute("ArticleList",ArticleList);
 		model.addAttribute("pageNum",pageNum);
 		return "/content";
+	}
+	
+	@RequestMapping(value = "/crawler", method = RequestMethod.POST)
+	public String crawler(CrawlerBean cb, HttpServletRequest request) {
+		String path =  request.getRealPath("");
+		System.out.println("/board/write writePost()");
+		
+		//cb로 db 조회해서 같은 keyword, 같은 날짜, 같거나 더큰 page 가 존재하는지 확인후 해당사항이 없을시 크롤링시작
+		
+		Crawler crawler = new Crawler();
+		List<ArticleBean> aList = crawler.crawling(cb,path);
+		BoardBean bb = new BoardBean();
+		bb.setKeyword(cb.getKeyword());
+		bb.setPage(cb.getPage());
+		bb.setCount(0);
+		articleService.insertArticle(bb,aList);
+		
+		
+		// /board/list
+		return "redirect:/list";
 	}
 
 

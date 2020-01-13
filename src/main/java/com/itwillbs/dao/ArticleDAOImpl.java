@@ -28,6 +28,25 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public List<ArticleBean> getArticleList(int num) {
 		return sqlSession.selectList(namespace+".getArticleList", num);
 	}
+
+	@Override
+	public void insertBoard(BoardBean bb) {
+		sqlSession.insert(namespace+".insertBoard",bb);		
+	}
+
+	@Override
+	public int getBoardMaxNum() {
+		return sqlSession.selectOne(namespace+".getBoardMaxNum");
+	}
+
+	@Override
+	public void insertArticle(int num, List<ArticleBean> aList) {
+		for(ArticleBean ab : aList) {
+			ab.setBoard_num(num);
+			sqlSession.insert(namespace+".insertArticle",ab);
+		}
+		
+	}
 	
 	
 

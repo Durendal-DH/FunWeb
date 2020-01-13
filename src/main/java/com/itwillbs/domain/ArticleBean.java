@@ -2,12 +2,12 @@ package com.itwillbs.domain;
 
 import java.sql.Date;
 
-public class ArticleBean {
+public class ArticleBean {	
 	private int num;
 	private int board_num;
 	private String subject;
 	private String link;
-	private Date date;
+	private String date;
 	private String content;
 	private String press;
 	public int getNum() {
@@ -34,10 +34,10 @@ public class ArticleBean {
 	public void setLink(String link) {
 		this.link = link;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	public String getContent() {

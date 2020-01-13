@@ -12,4 +12,6 @@ public interface ArticleService {
 
 	public List<ArticleBean> getArticleList(int num);
 
+	public void insertArticle(BoardBean bb, List<ArticleBean> aList);
+
 }

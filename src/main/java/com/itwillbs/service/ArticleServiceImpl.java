@@ -31,5 +31,14 @@ public class ArticleServiceImpl implements ArticleService{
 		return articleDAO.getArticleList(num);
 	}
 
+	@Override
+	public void insertArticle(BoardBean bb, List<ArticleBean> aList) {
+		articleDAO.insertBoard(bb);
+		int num = articleDAO.getBoardMaxNum();
+		System.out.println(num);
+		articleDAO.insertArticle(num,aList);
+		
+	}
+
 	
 }

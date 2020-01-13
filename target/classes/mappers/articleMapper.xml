@@ -13,4 +13,21 @@
   		select * from article where board_num = #{num} order by num desc
   	</select>
   	
+  	<insert id="insertBoard">
+		insert into
+		board(date,keyword,count,page)
+		values(now(),#{keyword},#{count},#{page});
+	</insert>
+  	
+  	<select id="getBoardMaxNum" resultType="java.lang.Integer">
+		select max(num) from board
+	</select>
+  	
+  	<insert id="insertArticle">
+		insert into
+		Article(board_num,subject,link,date,content,press)
+		values(#{board_num},#{subject},#{link},#{date},#{content},#{press});
+	</insert>
+  	
+  	
   </mapper>
