@@ -53,20 +53,36 @@
 			<c:forEach var="list" items="${List }">
             <div class="border p-3 rounded mb-2">
 	        	<div>
-	            	<a href="content?num=${list.num }" class="accordion-item h5 d-block mb-0">${list.keyword }(${list.date })</a>
+	            	<a href="content?num=${list.num }&keyword=${list.keyword }(${list.date })&page=${pageBean.page}" class="accordion-item h5 d-block mb-0">${list.keyword }(${list.date })</a>
 	            </div>
-	            <div style="top: -25px; right: 22px; float: right; position: relative;">
-	            	${list.count }
+	            <div style="top: -25px; right: 4px; float: right; position: relative;">
+	            	<a href="excelDown?board_num=${list.num }&file_name=${list.keyword }(${list.date })">
+	            	<img src="<c:url value='/resources/images/excel.jpg'/>" width = "27px;">
+	            	</a>
+	            </div>
+	            <div style="top: -25px; right: 28px;; float: right; position: relative;">
+	            	${list.page }
 	            </div>
             </div>
             </c:forEach>
 	        <div class="col-12 mt-5 text-center">
 	            <div class="custom-pagination">
-	              <span>1</span>
-	              <a href="#">2</a>
-	              <a href="#">3</a>
-	              <span class="more-page">...</span>
-	              <a href="#">10</a>
+	            <c:if test="${pageBean.page>1 }">
+	            	<a href="list?page=${pageBean.page-1 }">＜</a>
+	            </c:if>
+	            <c:forEach var="i" begin="${pageBean.startPage }" end="${pageBean.endPage }" step="1" varStatus="page">
+	            	<c:choose>
+	            		<c:when test="${pageBean.page == page.current }">
+	            			<span>${page.current }</span>
+	            		</c:when>
+	            		<c:otherwise>
+	            		<a href = "list?page=${page.current }">${page.current }</a>
+	            		</c:otherwise>
+	            	</c:choose>
+	            </c:forEach>
+				<c:if test="${pageBean.page<pageBean.maxPage }">
+					<a href = "list?page=${pageBean.page+1 }">></a>
+				</c:if>
 	            </div>
 	        </div>
           </div>
@@ -74,9 +90,16 @@
 
             <div class="mb-5">
               <h3 class="h5 text-black mb-3">Filters</h3>
-              <form action="#" method="post">
+              <form action="<c:url value="/list"/>" method="post">
                 <div class="form-group">
-                  <input type="text" placeholder="What are you looking for?" class="form-control">
+                  <input type="text" placeholder="What are you looking for?" class="form-control" name="keyword">
+                </div>
+                <div class="form-group">
+                  <!-- select-wrap, .wrap-icon -->
+                  <div class="wrap-icon">
+                    <span class="icon icon-room"></span>
+                    <input type="number" placeholder="Pages" class="form-control" name ="pages">
+                  </div>
                 </div>
                 <div class="form-group">
                   <div class="select-wrap">
@@ -92,24 +115,7 @@
                       </select>
                     </div>
                 </div>
-                <div class="form-group">
-                  <!-- select-wrap, .wrap-icon -->
-                  <div class="wrap-icon">
-                    <span class="icon icon-room"></span>
-                    <input type="text" placeholder="Location" class="form-control">
-                  </div>
-                </div>
-              </form>
-            </div>
-            
-            <div class="mb-5">
-              <form action="#" method="post">
-                <div class="form-group">
-                  <p>기사 갯수</p>
-                </div>
-                <div class="form-group">
-                  <input type="range" min="0" max="100" value="20" data-rangeslider>
-                </div>
+	            <input type="submit" class="btn text-white btn-primary" value="Search">
               </form>
             </div>
           </div>

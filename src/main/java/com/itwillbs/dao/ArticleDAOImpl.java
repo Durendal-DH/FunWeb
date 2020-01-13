@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.itwillbs.domain.ArticleBean;
 import com.itwillbs.domain.BoardBean;
 import com.itwillbs.domain.PageBean;
+import com.itwillbs.domain.SearchBean;
 
 @Repository
 public class ArticleDAOImpl implements ArticleDAO {
@@ -20,13 +21,23 @@ public class ArticleDAOImpl implements ArticleDAO {
 	private static final String namespace="com.itwillbs.mapper.ArticleMapper";
 
 	@Override
-	public List<BoardBean> getList(PageBean pageBean) {
-		return sqlSession.selectList(namespace+".getList",pageBean);
+	public int getListCount() {
+		return sqlSession.selectOne(namespace+".getListCount");
+	}
+	
+	@Override
+	public List<BoardBean> getList(SearchBean searchBean) {
+		return sqlSession.selectList(namespace+".getList", searchBean);
+	}
+	
+	@Override
+	public int getArticleListCount(int num) {
+		return sqlSession.selectOne(namespace+".getArticleListCount", num);
 	}
 
 	@Override
-	public List<ArticleBean> getArticleList(int num) {
-		return sqlSession.selectList(namespace+".getArticleList", num);
+	public List<ArticleBean> getArticleList(SearchBean searchBean) {
+		return sqlSession.selectList(namespace+".getArticleList", searchBean);
 	}
 
 	@Override
@@ -46,6 +57,11 @@ public class ArticleDAOImpl implements ArticleDAO {
 			sqlSession.insert(namespace+".insertArticle",ab);
 		}
 		
+	}
+
+	@Override
+	public List<ArticleBean> getArticleList(int board_num) {
+		return sqlSession.selectList(namespace+".getArticleListE", board_num);
 	}
 	
 	

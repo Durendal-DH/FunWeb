@@ -10,6 +10,7 @@ import com.itwillbs.dao.ArticleDAO;
 import com.itwillbs.domain.ArticleBean;
 import com.itwillbs.domain.BoardBean;
 import com.itwillbs.domain.PageBean;
+import com.itwillbs.domain.SearchBean;
 
 @Service
 public class ArticleServiceImpl implements ArticleService{
@@ -17,18 +18,25 @@ public class ArticleServiceImpl implements ArticleService{
 	@Inject
 	ArticleDAO articleDAO;
 	
+	public int getListCount() {
+		// TODO Auto-generated method stub
+		return articleDAO.getListCount();
+	}
+	
 	@Override
-	public List<BoardBean> getList(PageBean pageBean) {
-		pageBean.setCurrentPage(Integer.parseInt(pageBean.getPageNum()));
-		
-		pageBean.setStartRow((pageBean.getCurrentPage()-1)*pageBean.getPageSize());
-		
-		return articleDAO.getList(pageBean);
+	public List<BoardBean> getList(SearchBean searchBean) {
+		return articleDAO.getList(searchBean);
 	}
 
 	@Override
-	public List<ArticleBean> getArticleList(int num) {
-		return articleDAO.getArticleList(num);
+	public int getArticleListCount(int num) {
+		// TODO Auto-generated method stub
+		return articleDAO.getArticleListCount(num);
+	}
+
+	@Override
+	public List<ArticleBean> getArticleList(SearchBean searchBean) {
+		return articleDAO.getArticleList(searchBean);
 	}
 
 	@Override
@@ -38,6 +46,11 @@ public class ArticleServiceImpl implements ArticleService{
 		System.out.println(num);
 		articleDAO.insertArticle(num,aList);
 		
+	}
+
+	@Override
+	public List<ArticleBean> getArticleList(int board_num) {
+		return articleDAO.getArticleList(board_num);
 	}
 
 	

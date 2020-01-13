@@ -22,6 +22,7 @@ import com.itwillbs.domain.ArticleBean;
 import com.itwillbs.domain.BoardBean;
 import com.itwillbs.domain.CrawlerBean;
 import com.itwillbs.domain.PageBean;
+import com.itwillbs.domain.SearchBean;
 import com.itwillbs.service.ArticleService;
 
 @Controller
@@ -35,32 +36,66 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(PageBean pageBean, HttpServletRequest request, Model model) {
-		
-		pageBean.setPageSize(10);
-		String pageNum = request.getParameter("pageNum");
-		pageBean.setPageNum(pageNum);
-		if(pageNum == null) {
-			pageBean.setPageNum("1");
+	public String list(PageBean pageBean, SearchBean searchBean, HttpServletRequest request, Model model) {
+		return listProcess(pageBean, searchBean, request, model);
+	}
+	@RequestMapping(value = "/list", method = RequestMethod.POST)
+	public String listPost(PageBean pageBean, SearchBean searchBean, HttpServletRequest request, Model model) {
+		return listProcess(pageBean, searchBean, request, model);
+	}
+	private String listProcess(PageBean pageBean, SearchBean searchBean, HttpServletRequest request, Model model) {
+		int limit = 5;
+		int pages = 0;
+		if(request.getParameter("pages")!=null&request.getParameter("pages")!="") {
+			pages = Integer.parseInt(request.getParameter("pages"));
 		}
-		List<BoardBean> List = articleService.getList(pageBean);
+		String keyword = "";
+		if(request.getParameter("keyword")!=null) {
+			keyword = request.getParameter("keyword");
+		}
+		int listCount = articleService.getListCount();
+		pageBean = getPageBean(limit, request, listCount);
+		int startRow = (pageBean.getPage() -1) * limit;
+		searchBean = new SearchBean(limit,startRow,"%"+keyword+"%", pages);
+		List<BoardBean> List = articleService.getList(searchBean);
 		
 		model.addAttribute("List",List);
 		model.addAttribute("pageBean",pageBean);
 		return "/list";
-		
 	}
 	
 	@RequestMapping(value = "/content", method = RequestMethod.GET)
-	public String content(HttpServletRequest request, Model model) {
+	public String content(PageBean pageBean, SearchBean searchBean, HttpServletRequest request, Model model) {
 		int num = Integer.parseInt(request.getParameter("num"));
-		String pageNum = request.getParameter("pageNum");
-		List<ArticleBean> ArticleList = articleService.getArticleList(num);
-		model.addAttribute("ArticleList",ArticleList);
-		model.addAttribute("pageNum",pageNum);
+		int limit = 10;
+		int listCount = articleService.getArticleListCount(num);
+		pageBean = getPageBean(limit, request, listCount);
+		int startRow = (pageBean.getPage() -1) * limit;
+		searchBean = new SearchBean(limit,startRow,num);
+		List<ArticleBean> ArticleList = articleService.getArticleList(searchBean);
+		System.out.println("maxPage = "+pageBean.getMaxPage());
+		System.out.println("page = "+pageBean.getPage());
+		model.addAttribute("num", num);
+		model.addAttribute("pageBean", pageBean);
+		model.addAttribute("ArticleList", ArticleList);
+		model.addAttribute("keyword", request.getParameter("keyword"));
+		model.addAttribute("page", pageBean.getPage());
 		return "/content";
 	}
 	
+	private PageBean getPageBean(int limit, HttpServletRequest request, int listCount) {
+		int page = 1;
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page")); 
+		}
+		int maxPage = (int)((double)listCount / limit + 0.95); //0.95 는 올림처리를 위한 덧셈
+		int startPage = ((int)((double)page / 10 + 0.9) - 1) * 10 + 1;
+		int endPage = startPage + 10 - 1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		return new PageBean(page,maxPage,startPage,endPage,listCount);
+	}
 	@RequestMapping(value = "/crawler", method = RequestMethod.POST)
 	public String crawler(CrawlerBean cb, HttpServletRequest request) {
 		String path =  request.getRealPath("");
@@ -85,20 +120,16 @@ public class MainController {
 
 	public void excelDown(HttpServletResponse response, HttpServletRequest request) throws Exception {
 
-
-
 	    // 게시판 목록조회
 		int board_num = Integer.parseInt(request.getParameter("board_num"));
 		String file_name = request.getParameter("file_name");
-		
 	    List<ArticleBean> list = articleService.getArticleList(board_num);
-
 
 	    // 워크북 생성
 
 	    Workbook wb = new HSSFWorkbook();
 
-	    Sheet sheet = wb.createSheet("게시판");
+	    Sheet sheet = wb.createSheet(file_name);
 
 	    Row row = null;
 

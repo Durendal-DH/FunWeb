@@ -5,11 +5,23 @@
   
   <mapper namespace="com.itwillbs.mapper.ArticleMapper">
   
+	<select id="getListCount" resultType="java.lang.Integer">
+  		select count(*) from board
+  	</select>
+  	
 	<select id="getList" resultType="com.itwillbs.domain.BoardBean">
-  		select * from board order by num desc limit #{startRow}, #{pageSize}
+  		select * from board where keyword like #{keyword} and page >= #{page} order by num desc limit #{startRow}, #{limit}
+  	</select>
+  	
+  	<select id="getArticleListCount" resultType="java.lang.Integer">
+  		select count(*) from article where board_num = #{num}
   	</select>
   	
   	<select id="getArticleList" resultType="com.itwillbs.domain.ArticleBean">
+  		select * from article where board_num = #{num} order by num desc limit #{startRow}, #{limit}
+  	</select>
+  	
+  	<select id="getArticleListE" resultType="com.itwillbs.domain.ArticleBean">
   		select * from article where board_num = #{num} order by num desc
   	</select>
   	
