@@ -26,6 +26,18 @@
             loop: true,
             showCursor: true
             });
+          	function checkPage(){
+          		var keyword = document.getElementById("keyword");
+          		if(keyword == null){
+          			alert("키워드를 입력하세요.");
+          			return false;
+          		}
+          		var page = document.getElementById("page");
+          		if(page == null){
+          			alert("페이지 수를 입력하세요.");
+          			return false;
+          		}
+          	}
             </script>
 
   <script src="<c:url value='/resources/js/main.js'/>"></script>

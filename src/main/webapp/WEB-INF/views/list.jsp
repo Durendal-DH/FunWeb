@@ -97,7 +97,6 @@
                 <div class="form-group">
                   <!-- select-wrap, .wrap-icon -->
                   <div class="wrap-icon">
-                    <span class="icon icon-room"></span>
                     <input type="number" placeholder="Pages" class="form-control" name ="pages">
                   </div>
                 </div>

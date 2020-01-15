@@ -40,14 +40,13 @@
             </div>
 
             <div class="form-search-wrap p-2" data-aos="fade-up" data-aos-delay="200">
-              <form action='<c:url value="/crawler"/>' method="post">
+              <form action='<c:url value="/crawler"/>' method="post" onsubmit="return checkPage();">
                 <div class="row align-items-center">
                   <div class="col-lg-12 col-xl-4 no-sm-border border-right">
                     <input type="text" class="form-control" name="keyword" placeholder="키워드를 입력해 주세요">
                   </div>
                   <div class="col-lg-12 col-xl-3 no-sm-border border-right">
                     <div class="wrap-icon">
-                      <span class="icon icon-room"></span>
                       <input type="number" class="form-control" name="page" placeholder="구글뉴스를 검색할 페이지 범위를 입력해주세요">
                     </div>
                     

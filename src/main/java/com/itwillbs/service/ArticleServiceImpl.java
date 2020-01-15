@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.dao.ArticleDAO;
 import com.itwillbs.domain.ArticleBean;
 import com.itwillbs.domain.BoardBean;
+import com.itwillbs.domain.CrawlerBean;
 import com.itwillbs.domain.PageBean;
 import com.itwillbs.domain.SearchBean;
 
@@ -40,17 +41,33 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
+	public List<ArticleBean> getArticleList(int num) {
+		return articleDAO.getArticleList(num);
+	}
+	
+	
+	@Override
+	public void updateCount(int num) {
+		System.out.println("updateCount");
+		articleDAO.updateCount(num);
+	}
+
+	@Override
 	public void insertArticle(BoardBean bb, List<ArticleBean> aList) {
 		articleDAO.insertBoard(bb);
 		int num = articleDAO.getBoardMaxNum();
-		System.out.println(num);
 		articleDAO.insertArticle(num,aList);
 		
 	}
 
 	@Override
-	public List<ArticleBean> getArticleList(int board_num) {
-		return articleDAO.getArticleList(board_num);
+	public int checkData(CrawlerBean cb) {
+		return articleDAO.checkData(cb);
+	}
+
+	@Override
+	public void deleteboard_Article(int check) {
+		articleDAO.deleteboard_Article(check);		
 	}
 
 	

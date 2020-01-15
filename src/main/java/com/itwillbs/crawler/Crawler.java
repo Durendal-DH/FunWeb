@@ -15,7 +15,6 @@ public class Crawler {
 
 	@Test
 	public List<ArticleBean> crawling(CrawlerBean cb, String path) {
-		
 		List<ArticleBean> jList = new ArrayList<ArticleBean>();
 		
 		// Optional. If not specified, WebDriver searches the PATH for chromedriver.

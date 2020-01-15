@@ -68,13 +68,12 @@ public class MainController {
 	public String content(PageBean pageBean, SearchBean searchBean, HttpServletRequest request, Model model) {
 		int num = Integer.parseInt(request.getParameter("num"));
 		int limit = 10;
-		int listCount = articleService.getArticleListCount(num);
-		pageBean = getPageBean(limit, request, listCount);
+		int ArticlelistCount = articleService.getArticleListCount(num);
+		pageBean = getPageBean(limit, request, ArticlelistCount);
 		int startRow = (pageBean.getPage() -1) * limit;
 		searchBean = new SearchBean(limit,startRow,num);
+		articleService.updateCount(num);
 		List<ArticleBean> ArticleList = articleService.getArticleList(searchBean);
-		System.out.println("maxPage = "+pageBean.getMaxPage());
-		System.out.println("page = "+pageBean.getPage());
 		model.addAttribute("num", num);
 		model.addAttribute("pageBean", pageBean);
 		model.addAttribute("ArticleList", ArticleList);
@@ -97,21 +96,59 @@ public class MainController {
 		return new PageBean(page,maxPage,startPage,endPage,listCount);
 	}
 	@RequestMapping(value = "/crawler", method = RequestMethod.POST)
-	public String crawler(CrawlerBean cb, HttpServletRequest request) {
+	public String crawler(CrawlerBean cb, HttpServletRequest request, HttpServletResponse respone) {
 		String path =  request.getRealPath("");
 		System.out.println("/board/write writePost()");
 		
 		//cb로 db 조회해서 같은 keyword, 같은 날짜, 같거나 더큰 page 가 존재하는지 확인후 해당사항이 없을시 크롤링시작
 		
-		Crawler crawler = new Crawler();
-		List<ArticleBean> aList = crawler.crawling(cb,path);
-		BoardBean bb = new BoardBean();
-		bb.setKeyword(cb.getKeyword());
-		bb.setPage(cb.getPage());
-		bb.setCount(0);
-		articleService.insertArticle(bb,aList);
+		int check = articleService.checkData(cb);
+		System.out.println("check 값은 = "+check);
+		
+		if(check == -1) {
+			//out.print 가 동작하지 않음
+			
+			//return "redirect:/list_search"+cb.getKeyword();
+			//or 
+			//redirect.addAttribute("keyword", cb.getKeyword()); 
+			//return "redirect:/list_search"
+			
+			//위 문장으로 바꿔놓고 list_search구현하면됨
+			
+			
+//			respone.setContentType("text/html;charset=UTF-8");
+//			PrintWriter out;
+//			System.out.println(1);
+//			try {
+//				System.out.println(2);
+//				out = respone.getWriter();
+//				out.println("<script>");
+//				out.println("alert('이미 해당 키워드로 검색된 결과가 있습니다')");
+//				out.println("history.back()");
+//				out.println("alert('back??')");
+//				out.println("</script>");
+//				System.out.println(3);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			
+		} else if (check >= 0) {
+			articleService.deleteboard_Article(check);
+			
+			Crawler crawler = new Crawler();
+			List<ArticleBean> aList = crawler.crawling(cb,path);
+			BoardBean bb = new BoardBean();
+			bb.setKeyword(cb.getKeyword());
+			bb.setPage(cb.getPage());
+			bb.setCount(0);
+			articleService.insertArticle(bb,aList);
+			
+		} 
 		
 		
+
+		System.out.println("return 실행됨");
 		// /board/list
 		return "redirect:/list";
 	}
@@ -120,16 +157,20 @@ public class MainController {
 
 	public void excelDown(HttpServletResponse response, HttpServletRequest request) throws Exception {
 
+
+
 	    // 게시판 목록조회
 		int board_num = Integer.parseInt(request.getParameter("board_num"));
 		String file_name = request.getParameter("file_name");
+		
 	    List<ArticleBean> list = articleService.getArticleList(board_num);
+
 
 	    // 워크북 생성
 
 	    Workbook wb = new HSSFWorkbook();
 
-	    Sheet sheet = wb.createSheet(file_name);
+	    Sheet sheet = wb.createSheet("게시판");
 
 	    Row row = null;
 
@@ -213,6 +254,9 @@ public class MainController {
 	    wb.close();
 
 	}
-
+	@RequestMapping(value = "/graph")
+	public String graph() {
+		return "/graph";
+	}
 
 }

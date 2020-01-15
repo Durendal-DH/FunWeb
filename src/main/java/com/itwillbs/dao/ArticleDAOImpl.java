@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.ArticleBean;
 import com.itwillbs.domain.BoardBean;
+import com.itwillbs.domain.CrawlerBean;
 import com.itwillbs.domain.PageBean;
 import com.itwillbs.domain.SearchBean;
 
@@ -40,6 +41,17 @@ public class ArticleDAOImpl implements ArticleDAO {
 		return sqlSession.selectList(namespace+".getArticleList", searchBean);
 	}
 
+	
+	@Override
+	public void updateCount(int num) {
+		System.out.println("updateCount");
+		int count = sqlSession.selectOne(namespace+".selectCount",num);
+		BoardBean boardBean = new BoardBean();
+		boardBean.setCount(count+1);
+		boardBean.setNum(num);
+		sqlSession.update(namespace+".updateCount", boardBean);
+	}
+
 	@Override
 	public void insertBoard(BoardBean bb) {
 		sqlSession.insert(namespace+".insertBoard",bb);		
@@ -57,6 +69,30 @@ public class ArticleDAOImpl implements ArticleDAO {
 			sqlSession.insert(namespace+".insertArticle",ab);
 		}
 		
+	}
+
+	@Override
+	public int checkData(CrawlerBean cb) {
+
+		BoardBean bb = null;
+		bb = sqlSession.selectOne(namespace+".checkDate_keyword",cb);
+		if(bb == null) {
+			return 0; // 
+		}else {
+			if(bb.getPage()>=cb.getPage()) {
+				return -1; // history back
+			}else {
+				return bb.getNum();
+			}
+		}
+		
+	
+	}
+
+	@Override
+	public void deleteboard_Article(int num) {
+		sqlSession.delete(namespace+".deleteBoard",num);
+		sqlSession.delete(namespace+".deleteArticle",num);
 	}
 
 	@Override

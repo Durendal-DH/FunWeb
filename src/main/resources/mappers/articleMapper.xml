@@ -25,21 +25,42 @@
   		select * from article where board_num = #{num} order by num desc
   	</select>
   	
+  	<select id="selectCount" resultType="java.lang.Integer">
+  		select count from board where num = #{num}
+  	</select>
+  	
+  	<update id="updateCount">
+  		update board set count = #{count} where num = #{num}
+  	</update>
+  	
   	<insert id="insertBoard">
 		insert into
 		board(date,keyword,count,page)
 		values(now(),#{keyword},#{count},#{page});
 	</insert>
-  	
-  	<select id="getBoardMaxNum" resultType="java.lang.Integer">
+
+	<select id="getBoardMaxNum" resultType="java.lang.Integer">
 		select max(num) from board
 	</select>
-  	
-  	<insert id="insertArticle">
-		insert into
-		Article(board_num,subject,link,date,content,press)
-		values(#{board_num},#{subject},#{link},#{date},#{content},#{press});
+
+	<insert id="insertArticle">
+		insert into article(board_num,subject,link,date,content,press) 
+		values(#{board_num},#{subject},#{link},#{date},#{content},#{press})
 	</insert>
+
+	<select id="checkDate_keyword" resultType="com.itwillbs.domain.BoardBean">
+		select * from board where keyword = #{keyword} and date = date(now())
+	</select>
+
+
+
+	<delete id="deleteBoard">
+		delete from board 	where num = #{num}
+	</delete>
+
+	<delete id="deleteArticle">
+		delete from article where board_num = #{num}
+	</delete>
   	
   	
   </mapper>

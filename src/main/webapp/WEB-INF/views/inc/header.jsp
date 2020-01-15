@@ -15,10 +15,10 @@
 				<nav class="site-navigation position-relative text-right"
 					role="navigation">
 					<ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
-						<li class="active"><a href="<c:url value='/'/>"><span>Home</span></a></li>
+						<li><a href="<c:url value='/'/>"><span>Home</span></a></li>
 						<li><a href="<c:url value='/list'/>"><span>Articles</span></a></li>
+						<li><a href="<c:url value='/graph'/>"><span>Popular Keyword</span></a></li>
 						<li><a href="about.html"><span>About</span></a></li>
-						<li><a href="blog.html"><span>Blog</span></a></li>
 						<li><a href="contact.html"><span>Contact</span></a></li>
 					</ul>
 				</nav>
