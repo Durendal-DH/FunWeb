@@ -44,7 +44,6 @@ public class ArticleDAOImpl implements ArticleDAO {
 	
 	@Override
 	public void updateCount(int num) {
-		System.out.println("updateCount");
 		int count = sqlSession.selectOne(namespace+".selectCount",num);
 		BoardBean boardBean = new BoardBean();
 		boardBean.setCount(count+1);
