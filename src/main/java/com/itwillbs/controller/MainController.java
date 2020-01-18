@@ -31,7 +31,9 @@ public class MainController {
 	ArticleService articleService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index() {
+	public String index(Model model) {
+		List<String> PopularKeyword = articleService.getPopularKeyword();
+		model.addAttribute("PopularKeyword", PopularKeyword);
 		return "/index";
 	}
 	

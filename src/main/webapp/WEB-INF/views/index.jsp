@@ -34,8 +34,7 @@
             
             <div class="row justify-content-center mb-4">
               <div class="col-md-10 text-center">
-                <h1 data-aos="fade-up">Find Nearby <span class="typed-words"></span></h1>
-                <p data-aos="fade-up" data-aos-delay="100">Handcrafted free templates by <a href="https://free-template.co/" target="_blank">Free-Template.co</a></p>
+                <h1 data-aos="fade-up">많이 찾은 키워드 : <span class="typed-words"></span></h1>
               </div>
             </div>
 
@@ -85,4 +84,15 @@
 	</div>
   </body>
   <jsp:include page="resource/script.jsp"/>
+  <script>
+	var typed = new Typed('.typed-words', {
+		strings : ${PopularKeyword },
+		typeSpeed : 80,
+		backSpeed : 80,
+		backDelay : 4000,
+		startDelay : 1000,
+		loop : true,
+		showCursor : true
+	});
+  </script>
 </html>

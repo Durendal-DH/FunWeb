@@ -5,6 +5,10 @@
   
   <mapper namespace="com.itwillbs.mapper.ArticleMapper">
   
+	<select id="getPopularKeyword" resultType="String">
+		select concat('\'',keyword,'\'') from board group by keyword order by sum(count) desc limit 0,5
+	</select>
+	
 	<select id="getListCount" resultType="java.lang.Integer">
   		select count(*) from board
   	</select>
@@ -34,9 +38,7 @@
   	</update>
   	
   	<insert id="insertBoard">
-		insert into
-		board(date,keyword,count,page)
-		values(now(),#{keyword},#{count},#{page});
+		insert into board(date,keyword,count,page) values(now(),#{keyword},#{count},#{page});
 	</insert>
 
 	<select id="getBoardMaxNum" resultType="java.lang.Integer">
@@ -51,8 +53,6 @@
 	<select id="checkDate_keyword" resultType="com.itwillbs.domain.BoardBean">
 		select * from board where keyword = #{keyword} and date = date(now())
 	</select>
-
-
 
 	<delete id="deleteBoard">
 		delete from board 	where num = #{num}

@@ -64,7 +64,7 @@
 <!--               </a> -->
 
               <div class="lh-content">
-                <h3><a href="#">${articleList.subject }</a></h3>
+                <h3><a href="${articleList.link }">${articleList.subject }</a></h3>
                 <p>${articleList.subject }</p>
                 <p>
                   ${articleList.date }(${articleList.press })

@@ -9,6 +9,8 @@ import com.itwillbs.domain.PageBean;
 import com.itwillbs.domain.SearchBean;
 
 public interface ArticleService {
+	
+	public List<String> getPopularKeyword();
 
 	public int getListCount();
 

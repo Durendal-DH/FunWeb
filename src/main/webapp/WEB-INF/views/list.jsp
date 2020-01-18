@@ -35,7 +35,6 @@
             <div class="row justify-content-center">
               <div class="col-md-8 text-center">
                 <h1>기사 자료실</h1>
-                <p data-aos="fade-up" data-aos-delay="100">검색된 기사 <a href="https://free-template.co/" target="_blank">Free-Template.co</a></p>
               </div>
             </div>
 
@@ -119,64 +118,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="site-section">
-      <div class="container">
-        <div class="row justify-content-center mb-5">
-          <div class="col-md-7 text-center border-primary">
-            <h2 class="font-weight-light text-primary">Popular Categories</h2>
-            <p class="color-black-opacity-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-          </div>
-        </div>
-
-        <div class="row align-items-stretch">
-          <div class="col-6 col-sm-6 col-md-4 mb-4 mb-lg-0 col-lg-2">
-            <a href="#" class="popular-category h-100">
-              <span class="icon mb-3"><span class="flaticon-hotel"></span></span>
-              <span class="caption mb-2 d-block">Hotels</span>
-              <span class="number">4,89</span>
-            </a>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4 mb-4 mb-lg-0 col-lg-2">
-            <a href="#" class="popular-category h-100">
-              <span class="icon mb-3"><span class="flaticon-microphone"></span></span>
-              <span class="caption mb-2 d-block">Events</span>
-              <span class="number">482</span>
-            </a>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4 mb-4 mb-lg-0 col-lg-2">
-            <a href="#" class="popular-category h-100">
-              <span class="icon mb-3"><span class="flaticon-flower"></span></span>
-              <span class="caption mb-2 d-block">Spa</span>
-              <span class="number">194</span>
-            </a>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4 mb-4 mb-lg-0 col-lg-2">
-            <a href="#" class="popular-category h-100">
-              <span class="icon mb-3"><span class="flaticon-restaurant"></span></span>
-              <span class="caption mb-2 d-block">Stores</span>
-              <span class="number">1,472</span>
-            </a>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4 mb-4 mb-lg-0 col-lg-2">
-            <a href="#" class="popular-category h-100">
-              <span class="icon mb-3"><span class="flaticon-cutlery"></span></span>
-              <span class="caption mb-2 d-block">Restaurants</span>
-              <span class="number">439</span>
-            </a>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4 mb-4 mb-lg-0 col-lg-2">
-            <a href="#" class="popular-category h-100">
-              <span class="icon mb-3"><span class="flaticon-bike"></span></span>
-              <span class="caption mb-2 d-block">Other</span>
-              <span class="number">692</span>
-            </a>
-          </div>
-        </div>
-
-        
       </div>
     </div>
     <!-- content --> 

@@ -10,6 +10,8 @@ import com.itwillbs.domain.SearchBean;
 
 public interface ArticleDAO {
 
+	public List<String> getPopularKeyword();
+
 	public int getListCount();
 
 	public List<BoardBean> getList(SearchBean searchBean);
@@ -31,6 +33,5 @@ public interface ArticleDAO {
 	public int checkData(CrawlerBean cb);
 
 	public void deleteboard_Article(int num);
-
 
 }

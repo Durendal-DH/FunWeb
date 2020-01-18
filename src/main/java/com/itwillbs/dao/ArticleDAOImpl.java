@@ -21,6 +21,12 @@ public class ArticleDAOImpl implements ArticleDAO {
 	
 	private static final String namespace="com.itwillbs.mapper.ArticleMapper";
 
+	
+	@Override
+	public List<String> getPopularKeyword() {
+		return sqlSession.selectList(namespace+".getPopularKeyword");
+	}
+
 	@Override
 	public int getListCount() {
 		return sqlSession.selectOne(namespace+".getListCount");

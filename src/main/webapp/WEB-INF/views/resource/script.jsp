@@ -15,15 +15,7 @@
 <script src="<c:url value='/resources/js/rangeslider.min.js'/>"></script>
 <script src="<c:url value='/resources/js/typed.js'/>"></script>
 <script>
-	var typed = new Typed('.typed-words', {
-		strings : [ "Attractions", " Events", " Hotels", " Restaurants" ],
-		typeSpeed : 80,
-		backSpeed : 80,
-		backDelay : 4000,
-		startDelay : 1000,
-		loop : true,
-		showCursor : true
-	});
+
 	function checkPage() {
 		var keyword = document.getElementById('keyword');
 		if (keyword.value == "") {

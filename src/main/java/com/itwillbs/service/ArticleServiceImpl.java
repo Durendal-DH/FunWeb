@@ -19,6 +19,11 @@ public class ArticleServiceImpl implements ArticleService{
 	@Inject
 	ArticleDAO articleDAO;
 	
+	@Override
+	public List<String> getPopularKeyword() {
+		return articleDAO.getPopularKeyword();
+	}
+
 	public int getListCount() {
 		// TODO Auto-generated method stub
 		return articleDAO.getListCount();
