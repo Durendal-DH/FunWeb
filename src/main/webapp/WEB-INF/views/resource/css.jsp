@@ -40,3 +40,8 @@
 	href="<c:url value='/resources/css/rangeslider.css'/>">
 
 <link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
+<style>
+.site-blocks-cover{
+	position: absolute;
+	top: 50%;}
+</style>
