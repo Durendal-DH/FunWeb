@@ -5,16 +5,20 @@
   
   <mapper namespace="com.itwillbs.mapper.ArticleMapper">
   
+	<select  id="getBoardNum" resultType="com.itwillbs.domain.BoardBean">
+		select concat(keyword, '(', date, ')') keyword, num from board where keyword = #{keyword} and date = date_format(now(),'%y-%m-%d');
+	</select>
+  
 	<select id="getPopularKeyword" resultType="String">
 		select concat('\'',keyword,'\'') from board group by keyword order by sum(count) desc limit 0,5
 	</select>
 	
 	<select id="getListCount" resultType="java.lang.Integer">
-  		select count(*) from board
+  		select count(*) from board where keyword like concat('%', #{keyword}, '%') and page >= #{page}
   	</select>
   	
 	<select id="getList" resultType="com.itwillbs.domain.BoardBean">
-  		select * from board where keyword like #{keyword} and page >= #{page} order by num desc limit #{startRow}, #{limit}
+  		select * from board where keyword like  concat('%', #{keyword}, '%') and page >= #{page} order by num desc limit #{startRow}, #{limit}
   	</select>
   	
   	<select id="getArticleListCount" resultType="java.lang.Integer">

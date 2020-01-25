@@ -9,10 +9,12 @@ import com.itwillbs.domain.PageBean;
 import com.itwillbs.domain.SearchBean;
 
 public interface ArticleDAO {
+	
+	public BoardBean getBoardNum(CrawlerBean crawlerBean);
 
 	public List<String> getPopularKeyword();
 
-	public int getListCount();
+	public int getListCount(SearchBean searchBean);
 
 	public List<BoardBean> getList(SearchBean searchBean);
 

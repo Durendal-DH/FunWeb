@@ -10,18 +10,26 @@ import org.openqa.selenium.chrome.*;
 import com.itwillbs.domain.ArticleBean;
 import com.itwillbs.domain.CrawlerBean;
 
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 public class Crawler {
 	private WebDriver driver;
 
 	@Test
 	public List<ArticleBean> crawling(CrawlerBean cb, String path) {
 		List<ArticleBean> jList = new ArrayList<ArticleBean>();
-		
+		WebDriverManager.chromedriver().setup();
+//		wdm.chromeDriverUrl=https://chromedriver.storage.googleapis.com/
+//			wdm.chromeDriverExport=webdriver.chrome.driver
+//			wdm.chromeDriverVersion=LATEST
+//			ChromeDriverManager.getInstance().setup();
+			driver = new ChromeDriver();
 		// Optional. If not specified, WebDriver searches the PATH for chromedriver.
-		System.setProperty("webdriver.chrome.driver",
-				path+"/resources/driver/chromedriver.exe");
-		
-		driver = new ChromeDriver();
+//		System.setProperty("webdriver.chrome.driver",
+//				path+"/resources/driver/chromedriver.exe");
+//		
+//		driver = new ChromeDriver();
 		
 		for(int i = 0; i<cb.getPage(); i++) {
 			driver.get("https://www.google.com/search?q="+cb.getKeyword()+"&tbm=nws&start="+(i*10));

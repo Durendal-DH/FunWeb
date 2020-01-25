@@ -1,8 +1,11 @@
 package com.itwillbs.domain;
 
+import java.sql.Date;
+
 public class CrawlerBean {
 	  private int page;
 	  private String keyword;
+	  
 	public int getPage() {
 		return page;
 	}
@@ -15,4 +18,5 @@ public class CrawlerBean {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
+	
 }

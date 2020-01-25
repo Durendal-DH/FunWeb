@@ -10,9 +10,11 @@ import com.itwillbs.domain.SearchBean;
 
 public interface ArticleService {
 	
+	public BoardBean getBoardNum(CrawlerBean crawlerBean);
+	
 	public List<String> getPopularKeyword();
 
-	public int getListCount();
+	public int getListCount(SearchBean searchBean);
 
 	public List<BoardBean> getList(SearchBean searchBean);
 

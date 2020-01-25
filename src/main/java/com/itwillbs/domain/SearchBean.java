@@ -6,6 +6,7 @@ public class SearchBean {
 	private int num;
 	private String keyword;
 	private int page;
+	
 	public int getLimit() {
 		return limit;
 	}
@@ -48,9 +49,9 @@ public class SearchBean {
 
 	public SearchBean() {}
 	
-	public SearchBean(int limit, int startRow) {
-		this.limit = limit;
-		this.startRow = startRow;
+	public SearchBean(String keyword, int page) {
+		this.keyword = keyword;
+		this.page = page;
 	}
 
 	public SearchBean(int limit, int startRow, int num) {

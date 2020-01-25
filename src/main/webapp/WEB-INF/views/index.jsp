@@ -25,7 +25,7 @@
 	<!-- 	header -->
   
 	<!-- content -->
-    <div class="site-blocks-cover overlay" style="background-image: url(<c:url value='/resources/images/search.jpg'/>;)" data-aos="fade" data-stellar-background-ratio="0.5">
+    <div class="site-blocks-cover overlay" style="background-image: url(<c:url value='/resources/images/news.jpg'/>;)" data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-center text-center">
 
@@ -41,29 +41,29 @@
             <div class="form-search-wrap p-2" data-aos="fade-up" data-aos-delay="200">
               <form action='<c:url value="/crawler"/>' method="post" onsubmit="return checkPage();">
                 <div class="row align-items-center">
-                  <div class="col-lg-12 col-xl-4 no-sm-border border-right">
-                    <input type="text" class="form-control" id =  "keyword" name="keyword" placeholder="키워드를 입력해 주세요">
+                  <div class="col-lg-12 col-xl-8 no-sm-border border-right">
+                    <input type="text" class="form-control" id =  "keyword" name="keyword" placeholder="Keyword">
                   </div>
-                  <div class="col-lg-12 col-xl-3 no-sm-border border-right">
+                  <div class="col-lg-12 col-xl-2 no-sm-border">
                     <div class="wrap-icon">
-                      <input type="number" class="form-control" id = "page" name="page" placeholder="구글뉴스를 검색할 페이지 범위를 입력해주세요">
-                    </div>
-                    
-                  </div>
-                  <div class="col-lg-12 col-xl-3">
-                    <div class="select-wrap">
-                      <span class="icon"><span class="icon-keyboard_arrow_down"></span></span>
-                      <select class="form-control" name="" id="">
-                        <option value="">All Categories</option>
-                        <option value="">Hotels</option>
-                        <option value="">Restaurant</option>
-                        <option value="">Eat &amp; Drink</option>
-                        <option value="">Events</option>
-                        <option value="">Fitness</option>
-                        <option value="">Others</option>
-                      </select>
+                      <input type="number" class="form-control" id = "page" name="page" placeholder="Pages">
                     </div>
                   </div>
+                  
+<!--                   <div class="col-lg-12 col-xl-3"> -->
+<!--                     <div class="select-wrap"> -->
+<!--                       <span class="icon"><span class="icon-keyboard_arrow_down"></span></span> -->
+<!--                       <select class="form-control" name="" id=""> -->
+<!--                         <option value="">All Categories</option> -->
+<!--                         <option value="">Hotels</option> -->
+<!--                         <option value="">Restaurant</option> -->
+<!--                         <option value="">Eat &amp; Drink</option> -->
+<!--                         <option value="">Events</option> -->
+<!--                         <option value="">Fitness</option> -->
+<!--                         <option value="">Others</option> -->
+<!--                       </select> -->
+<!--                     </div> -->
+<!--                   </div> -->
                   <div class="col-lg-12 col-xl-2 ml-auto text-right">
                     <input type="submit" class="btn text-white btn-primary" value="Search">
                   </div>

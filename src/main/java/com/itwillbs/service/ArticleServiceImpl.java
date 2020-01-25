@@ -19,14 +19,21 @@ public class ArticleServiceImpl implements ArticleService{
 	@Inject
 	ArticleDAO articleDAO;
 	
+	
+	@Override
+	public BoardBean getBoardNum(CrawlerBean crawlerBean) {
+		// TODO Auto-generated method stub
+		return articleDAO.getBoardNum(crawlerBean);
+	}
+
 	@Override
 	public List<String> getPopularKeyword() {
 		return articleDAO.getPopularKeyword();
 	}
 
-	public int getListCount() {
+	public int getListCount(SearchBean searchBean) {
 		// TODO Auto-generated method stub
-		return articleDAO.getListCount();
+		return articleDAO.getListCount(searchBean);
 	}
 	
 	@Override

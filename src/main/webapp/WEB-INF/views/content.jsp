@@ -25,7 +25,7 @@
 	<!-- 	header -->
   
 	<!-- content -->
-    <div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+	<div class="site-blocks-cover overlay" style="background-image: url(<c:url value='/resources/images/news.jpg'/>;)" data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-center text-center">
 
@@ -34,8 +34,7 @@
             
             <div class="row justify-content-center">
               <div class="col-md-8 text-center">
-                <h1>About Us</h1>
-                <p data-aos="fade-up" data-aos-delay="100">Handcrafted free templates by <a href="https://free-template.co/" target="_blank">Free-Template.co</a></p>
+                <h1>기사 보기</h1>
               </div>
             </div>
 
@@ -50,7 +49,10 @@
         <div class="row justify-content-center mb-5">
           <div class="col-md-7 text-center border-primary">
             <h2 class="font-weight-light text-primary">${keyword }</h2>
-            <p class="color-black-opacity-5"><a  href="excelDown?board_num=${num }&file_name=${keyword }">Excel Download</a></p>
+            <p class="color-black-opacity-5">
+            	<img src="<c:url value='/resources/images/excel.jpg'/>" width = "27px;">	
+            	<a  href="excelDown?board_num=${num }&file_name=${keyword }">Excel Download</a>
+            </p>
           </div>
         </div>
 

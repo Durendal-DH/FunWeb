@@ -25,7 +25,7 @@
 	<!-- 	header -->
   
 	<!-- content -->
-    <div class="site-blocks-cover inner-page-cover overlay" style="background-image: url(images/hero_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+	<div class="site-blocks-cover overlay" style="background-image: url(<c:url value='/resources/images/news.jpg'/>;);" data-aos="fade" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row align-items-center justify-content-center text-center">
 
@@ -67,7 +67,7 @@
 	        <div class="col-12 mt-5 text-center">
 	            <div class="custom-pagination">
 	            <c:if test="${pageBean.page>1 }">
-	            	<a href="list?page=${pageBean.page-1 }">＜</a>
+	            	<a href="list?page=${pageBean.page-1 }&keyword=${searchBean.keyword}&pages=${searchBean.page}">＜</a>
 	            </c:if>
 	            <c:forEach var="i" begin="${pageBean.startPage }" end="${pageBean.endPage }" step="1" varStatus="page">
 	            	<c:choose>
@@ -75,7 +75,7 @@
 	            			<span>${page.current }</span>
 	            		</c:when>
 	            		<c:otherwise>
-	            		<a href = "list?page=${page.current }">${page.current }</a>
+	            		<a href = "list?page=${page.current }&keyword=${searchBean.keyword}&pages=${searchBean.page}">${page.current }</a>
 	            		</c:otherwise>
 	            	</c:choose>
 	            </c:forEach>

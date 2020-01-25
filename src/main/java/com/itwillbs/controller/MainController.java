@@ -1,5 +1,7 @@
 package com.itwillbs.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,8 +29,11 @@ import com.itwillbs.service.ArticleService;
 
 @Controller
 public class MainController {
+	
 	@Inject
 	ArticleService articleService;
+	SearchBean searchBean;
+	PageBean pageBean;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
@@ -38,48 +43,68 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(PageBean pageBean, SearchBean searchBean, HttpServletRequest request, Model model) {
+	public String list(HttpServletRequest request, Model model) {
 		return listProcess(pageBean, searchBean, request, model);
 	}
 	@RequestMapping(value = "/list", method = RequestMethod.POST)
-	public String listPost(PageBean pageBean, SearchBean searchBean, HttpServletRequest request, Model model) {
+	public String listPost(HttpServletRequest request, Model model) {
 		return listProcess(pageBean, searchBean, request, model);
 	}
+	
 	private String listProcess(PageBean pageBean, SearchBean searchBean, HttpServletRequest request, Model model) {
-		int limit = 5;
+
+		int limit = 10;
 		int pages = 0;
+		
 		if(request.getParameter("pages")!=null&request.getParameter("pages")!="") {
 			pages = Integer.parseInt(request.getParameter("pages"));
 		}
+		
+		System.out.println("pages : "+pages);
+		
 		String keyword = "";
 		if(request.getParameter("keyword")!=null) {
 			keyword = request.getParameter("keyword");
 		}
-		int listCount = articleService.getListCount();
+		
+		System.out.println("keyword : "+keyword);
+		
+		searchBean = new SearchBean(keyword, pages);
+		int listCount = articleService.getListCount(searchBean);
+		
 		pageBean = getPageBean(limit, request, listCount);
 		int startRow = (pageBean.getPage() -1) * limit;
-		searchBean = new SearchBean(limit,startRow,"%"+keyword+"%", pages);
+		
+		searchBean = new SearchBean(limit,startRow, keyword, pages);
 		List<BoardBean> List = articleService.getList(searchBean);
 		
+		model.addAttribute("searchBean", searchBean);
 		model.addAttribute("List",List);
 		model.addAttribute("pageBean",pageBean);
 		return "/list";
+		
 	}
 	
 	@RequestMapping(value = "/content", method = RequestMethod.GET)
-	public String content(PageBean pageBean, SearchBean searchBean, HttpServletRequest request, Model model) {
+	public String content(HttpServletRequest request, Model model) throws UnsupportedEncodingException {
 		int num = Integer.parseInt(request.getParameter("num"));
+		String keyword = request.getParameter("keyword");
+
 		int limit = 10;
 		int ArticlelistCount = articleService.getArticleListCount(num);
+		
 		pageBean = getPageBean(limit, request, ArticlelistCount);
 		int startRow = (pageBean.getPage() -1) * limit;
+		
 		searchBean = new SearchBean(limit,startRow,num);
 		articleService.updateCount(num);
+		
 		List<ArticleBean> ArticleList = articleService.getArticleList(searchBean);
+		
 		model.addAttribute("num", num);
 		model.addAttribute("pageBean", pageBean);
 		model.addAttribute("ArticleList", ArticleList);
-		model.addAttribute("keyword", request.getParameter("keyword"));
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("page", pageBean.getPage());
 		return "/content";
 	}
@@ -97,76 +122,41 @@ public class MainController {
 		}
 		return new PageBean(page,maxPage,startPage,endPage,listCount);
 	}
+	
 	@RequestMapping(value = "/crawler", method = RequestMethod.POST)
-	public String crawler(CrawlerBean cb, HttpServletRequest request, HttpServletResponse respone) {
+	public String crawler(CrawlerBean crawlerBean, BoardBean boardBean, HttpServletRequest request, HttpServletResponse respone) throws UnsupportedEncodingException {
 		String path =  request.getRealPath("");
 		System.out.println("/board/write writePost()");
-		
 		//cb로 db 조회해서 같은 keyword, 같은 날짜, 같거나 더큰 page 가 존재하는지 확인후 해당사항이 없을시 크롤링시작
 		
-		int check = articleService.checkData(cb);
-		System.out.println("check 값은 = "+check);
+		int check = articleService.checkData(crawlerBean);
 		
-		if(check == -1) {
-			//out.print 가 동작하지 않음
-			
-			//return "redirect:/list_search"+cb.getKeyword();
-			//or 
-			//redirect.addAttribute("keyword", cb.getKeyword()); 
-			//return "redirect:/list_search"
-			
-			//위 문장으로 바꿔놓고 list_search구현하면됨
-			
-			
-//			respone.setContentType("text/html;charset=UTF-8");
-//			PrintWriter out;
-//			System.out.println(1);
-//			try {
-//				System.out.println(2);
-//				out = respone.getWriter();
-//				out.println("<script>");
-//				out.println("alert('이미 해당 키워드로 검색된 결과가 있습니다')");
-//				out.println("history.back()");
-//				out.println("alert('back??')");
-//				out.println("</script>");
-//				System.out.println(3);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-			
-		} else if (check >= 0) {
+		if (check >= 0) {
 			articleService.deleteboard_Article(check);
 			
 			Crawler crawler = new Crawler();
-			List<ArticleBean> aList = crawler.crawling(cb,path);
-			BoardBean bb = new BoardBean();
-			bb.setKeyword(cb.getKeyword());
-			bb.setPage(cb.getPage());
-			bb.setCount(0);
-			articleService.insertArticle(bb,aList);
-			
+			List<ArticleBean> articleList = crawler.crawling(crawlerBean,path);
+			boardBean = new BoardBean();
+			boardBean.setKeyword(crawlerBean.getKeyword());
+			boardBean.setPage(crawlerBean.getPage());
+			boardBean.setCount(0);
+			articleService.insertArticle(boardBean, articleList);
 		} 
 		
-		
-
-		System.out.println("return 실행됨");
-		// /board/list
-		return "redirect:/list";
+		boardBean = articleService.getBoardNum(crawlerBean);
+		String keyword = URLEncoder.encode(boardBean.getKeyword(),"utf-8");
+		return "redirect:/content?keyword="+keyword+"&num="+boardBean.getNum();
 	}
 	
 	@RequestMapping(value = "/excelDown")
 
 	public void excelDown(HttpServletResponse response, HttpServletRequest request) throws Exception {
 
-
-
 	    // 게시판 목록조회
 		int board_num = Integer.parseInt(request.getParameter("board_num"));
 		String file_name = request.getParameter("file_name");
 		
 	    List<ArticleBean> list = articleService.getArticleList(board_num);
-
 
 	    // 워크북 생성
 
@@ -179,8 +169,6 @@ public class MainController {
 	    Cell cell = null;
 
 	    int rowNo = 0;
-
-
 
 	    // 헤더 생성
 
@@ -207,8 +195,6 @@ public class MainController {
 	    cell.setCellValue("링크");
 	    
 
-
-
 	    // 데이터 부분 생성
 
 	    for(ArticleBean ab : list) {
@@ -234,25 +220,21 @@ public class MainController {
 		    cell = row.createCell(4);
 
 		    cell.setCellValue(ab.getLink());
-	        
-	        
 
 	    }
 
 
 
 	    // 컨텐츠 타입과 파일명 지정
-
+	    file_name = file_name +".xls";
+	    file_name = URLEncoder.encode(file_name, "UTF-8");
+	    
+	    response.setCharacterEncoding("utf-8");
 	    response.setContentType("ms-vnd/excel");
-
-	    response.setHeader("Content-Disposition", "attachment;filename="+ file_name +".xls");
-
-
+	    response.setHeader("Content-Disposition", "attachment;filename="+file_name);
 
 	    // 엑셀 출력
-
 	    wb.write(response.getOutputStream());
-
 	    wb.close();
 
 	}
