@@ -5,6 +5,7 @@ import java.sql.Date;
 public class ArticleBean {	
 	private int num;
 	private int board_num;
+	private String img;
 	private String subject;
 	private String link;
 	private String date;
@@ -21,6 +22,12 @@ public class ArticleBean {
 	}
 	public void setBoard_num(int board_num) {
 		this.board_num = board_num;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
 	}
 	public String getSubject() {
 		return subject;
