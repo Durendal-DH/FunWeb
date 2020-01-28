@@ -238,9 +238,19 @@ public class MainController {
 	    wb.close();
 
 	}
+	
 	@RequestMapping(value = "/graph")
 	public String graph() {
 		return "/graph";
 	}
-
+	
+	@RequestMapping(value = "/about")
+	public String about() {
+		return "/about";
+	}
+	
+	@RequestMapping(value = "/contact")
+	public String contact() {
+		return "/contact";
+	}
 }

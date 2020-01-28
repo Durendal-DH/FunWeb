@@ -51,6 +51,10 @@ public class Crawler {
 					date = date.substring(0,11);
 				}
 				String content = e.select("dd").get(1).text();
+				String[] keywords = cb.getKeyword().split("\\s");
+				for(String str : keywords) {
+					content = content.replaceAll(str, "<b>"+str+"</b>");
+				}
 //				System.out.println("img = "+img);
 //				System.out.println("subject = "+subject);
 //				System.out.println("link = "+link);

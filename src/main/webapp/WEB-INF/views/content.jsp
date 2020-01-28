@@ -61,13 +61,12 @@
           <div class="col-lg-8">
 			<c:forEach var="articleList" items="${ArticleList }">
             <div class="d-block d-md-flex listing-horizontal">
-
-<!--               <a href="#" class="img d-block" style="background-image: url('images/img_2.jpg')"> -->
-<!--               </a> -->
-
+            <c:if test="${articleList.img != null }">
+              <img src = ${articleList.img } class="article_img" alt="${articleList.img }">
+            </c:if>
               <div class="lh-content">
-                <h3><a href="${articleList.link }">${articleList.subject }</a></h3>
-                <p>${articleList.subject }</p>
+                <h4><a href="${articleList.link }">${articleList.subject }</a></h4>
+                <p>${articleList.content }</p>
                 <p>
                   ${articleList.date }(${articleList.press })
                 </p>

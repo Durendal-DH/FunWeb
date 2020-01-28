@@ -8,7 +8,6 @@
     <jsp:include page="resource/css.jsp"/>
   </head>
   <body>
-<!--   a bgfgf-->
   <div class="site-wrap">
 
     <div class="site-mobile-menu">

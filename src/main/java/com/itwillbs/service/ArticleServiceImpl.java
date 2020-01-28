@@ -65,10 +65,10 @@ public class ArticleServiceImpl implements ArticleService{
 	}
 
 	@Override
-	public void insertArticle(BoardBean bb, List<ArticleBean> aList) {
-		articleDAO.insertBoard(bb);
+	public void insertArticle(BoardBean boardBean, List<ArticleBean> articleList) {
+		articleDAO.insertBoard(boardBean);
 		int num = articleDAO.getBoardMaxNum();
-		articleDAO.insertArticle(num,aList);
+		articleDAO.insertArticle(num, articleList);
 		
 	}
 

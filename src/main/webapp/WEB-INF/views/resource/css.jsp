@@ -44,4 +44,9 @@
 .site-blocks-cover{
 	position: absolute;
 	top: 50%;}
+.article_img{
+	height: 200px;
+    margin-left: 20px;
+    margin-right: 1%;
+    margin-top:3px;}
 </style>

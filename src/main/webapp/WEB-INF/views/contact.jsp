@@ -52,7 +52,7 @@
 
             
 
-            <form action="#" class="p-5 bg-white" style="margin-top: -150px;">
+            <form action="#" class="p-5 bg-white">
              
 
               <div class="row form-group">

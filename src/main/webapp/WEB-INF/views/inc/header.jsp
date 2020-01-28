@@ -18,8 +18,8 @@
 						<li><a href="<c:url value='/'/>"><span>Home</span></a></li>
 						<li><a href="<c:url value='/list'/>"><span>Articles</span></a></li>
 						<li><a href="<c:url value='/graph'/>"><span>Popular Keyword</span></a></li>
-						<li><a href="about.html"><span>About</span></a></li>
-						<li><a href="contact.html"><span>Contact</span></a></li>
+						<li><a href="<c:url value='/about'/>"><span>About</span></a></li>
+						<li><a href="<c:url value='/contact'/>"><span>Contact</span></a></li>
 					</ul>
 				</nav>
 			</div>
